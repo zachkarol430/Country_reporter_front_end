@@ -1,20 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
-function Home() {
+const Home = () => {
   const [randomCountry, setRandomCountry] = useState(null);
+  const [flagSrc, setFlagSrc] = useState(null);
   const [loadingRandom, setLoadingRandom] = useState(false);
   const [errorRandom, setErrorRandom] = useState(null);
 
   const handleRandomCountry = async () => {
     setLoadingRandom(true);
     setErrorRandom(null);
+    setRandomCountry(null);
+    setFlagSrc(null);
     try {
       // Directly call FastAPI backend running on port 8000
       const res = await axios.get("http://localhost:8000/random-country");
       const country = res.data;
       if (country) {
         setRandomCountry(country);
+        // Construct the URL for the flag image using the country name.
+        // The .replace(/ /g, '_') part converts all spaces in the lowercase country name into underscores.
+        const flagUrl = country.flag_url;
+        console.log("Flag URL:", flagUrl);
+        setFlagSrc(flagUrl);
       } else {
         setErrorRandom("No country found.");
       }
@@ -48,28 +57,39 @@ function Home() {
               </span>
             </div>
             <p>Loading your adventure...</p>
-            </div>
+          </div>
         )}
         {errorRandom && <p className="error-message">❌ Error: {errorRandom}</p>}
       </section>
       {randomCountry && (
         <section className="country-info">
           <h2>{randomCountry.country_name}</h2>
+          {flagSrc && (
+            <div className="flag-container">
+              <img
+                src={flagSrc}
+                alt={`Flag of ${randomCountry.country_name}`}
+                style={{ maxWidth: '300px', margin: '1rem 0' }}
+              />
+            </div>
+          )}
           <div className="country-details">
             <div className="detail">
-              <h3 style={{ fontSize: "2rem", margin: "0.5rem 0" }}>🏛 CAPITAL</h3>
-              <p>{randomCountry.capital}</p>
+              <h3 style={{ fontSize: "2rem", margin: "0.5rem 0" }}>🏛 Capital</h3>
+              <p>
+                <Link to={`/capital/${randomCountry.capital}`}>{randomCountry.capital}</Link>
+              </p>
             </div>
             <div className="detail">
-              <h3 style={{ fontSize: "2rem", margin: "0.5rem 0" }}>🏰 GOVERNMENT TYPE</h3>
+              <h3 style={{ fontSize: "2rem", margin: "0.5rem 0" }}>🏰 Government Type</h3>
               <p>{randomCountry.government_type}</p>
             </div>
             <div className="detail">
-              <h3 style={{ fontSize: "2rem", margin: "0.5rem 0" }}>💰 CURRENCY</h3>
+              <h3 style={{ fontSize: "2rem", margin: "0.5rem 0" }}>💰 Currency</h3>
               <p>{randomCountry.currency}</p>
             </div>
             <div className="detail">
-              <h3 style={{ fontSize: "2rem", margin: "0.5rem 0" }}>🎉 FUN FACTS</h3>
+              <h3 style={{ fontSize: "2rem", margin: "0.5rem 0" }}>🎉 Fun Facts</h3>
               {(randomCountry.fun_facts.includes("1.") || randomCountry.fun_facts.includes("2.")) ? (
                 randomCountry.fun_facts.split(/(?=1\.)|(?=2\.)/).map((fact, idx) => (
                   <p key={idx}>{fact.trim()}</p>
@@ -83,6 +103,6 @@ function Home() {
       )}
     </div>
   );
-}
+};
 
 export default Home;
