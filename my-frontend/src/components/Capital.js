@@ -21,29 +21,41 @@ const Capital = () => {
   }, [capitalName]); // Fetch data when the component mounts or capitalName changes
 
   if (error) {
-    return <p>Error: {error}</p>; // Display error message if there's an error
+    return <p className="text-red-500">Error: {error}</p>; // Display error message if there's an error
   }
 
   if (!capitalInfo) {
-    return <p>Loading...</p>; // Display loading message while fetching data
+    return <p className="text-white">Loading...</p>; // Display loading message while fetching data
   }
 
+  // Construct the Google Maps embed URL using the API key from the environment variable
+  const googleMapsEmbedUrl = `https://www.google.com/maps/embed/v1/place?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&q=${encodeURIComponent(capitalInfo.capital)}`;
+
   return (
-    <div>
-      <h1>{capitalInfo.capital}</h1>
-      <img src={capitalInfo.image_url} alt={`Image of ${capitalInfo.capital}`} />
+    <div className="p-4 bg-gray-800 text-white">
+      <h1 className="text-3xl font-bold">{capitalInfo.capital}</h1>
+      <div className="flex justify-center">
+        <img src={capitalInfo.image_url} alt={`Image of ${capitalInfo.capital}`} className="my-4 rounded-lg" />
+      </div>
       <p>Country: {capitalInfo.country_name}</p>
       <p>Currency: {capitalInfo.currency}</p>
-      <h3>Weather Information</h3>
+      <h3 className="text-2xl mt-4">Weather Information</h3>
       <p>Temperature: {capitalInfo.weather.temperature} °C</p>
       <p>Description: {capitalInfo.weather.description}</p>
       <p>Humidity: {capitalInfo.weather.humidity} %</p>
       <p>Wind Speed: {capitalInfo.weather.wind_speed} m/s</p>
       <p>
-        <a href={capitalInfo.maps_link} target="_blank" rel="noopener noreferrer">
+        <a href={capitalInfo.maps_link} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
           View on Google Maps
         </a>
       </p>
+      <h3 className="text-2xl mt-4">Location on Google Maps</h3>
+      <iframe
+        className="w-full h-96 border-0"
+        loading="lazy"
+        allowFullScreen
+        src={googleMapsEmbedUrl}
+      ></iframe>
     </div>
   );
 };

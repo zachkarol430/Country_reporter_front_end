@@ -2,7 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './components/Home';
 import Capital from './components/Capital';
-import './App.css';
+import './index.css';
+
 
 function App() {
   return (
@@ -16,5 +17,6 @@ function App() {
     </Router>
   );
 }
+
 
 export default App;

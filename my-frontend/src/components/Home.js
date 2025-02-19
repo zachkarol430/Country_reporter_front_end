@@ -20,7 +20,6 @@ const Home = () => {
       if (country) {
         setRandomCountry(country);
         // Construct the URL for the flag image using the country name.
-        // The .replace(/ /g, '_') part converts all spaces in the lowercase country name into underscores.
         const flagUrl = country.flag_url;
         console.log("Flag URL:", flagUrl);
         setFlagSrc(flagUrl);
@@ -34,62 +33,57 @@ const Home = () => {
   };
 
   return (
-    <div className="home">
+    <div className="home bg-black text-white min-h-screen flex flex-col items-center">
       <header className="home-header">
-        <h1>🌍 Random Country Explorer 🌍</h1>
+        <h1 className="text-4xl my-4">🌍 Random Country Explorer 🌍</h1>
       </header>
       <section className="actions">
-        <button onClick={handleRandomCountry} className="btn-discover">
+        <button onClick={handleRandomCountry} className="bg-gradient-to-r from-blue-400 to-indigo-600 text-white rounded-full px-6 py-2 shadow-lg transition-transform transform hover:scale-105">
           🎲 Discover a Country!
         </button>
       </section>
       <section className="status-messages">
         {loadingRandom && (
-          <div>
+          <div className="flex flex-col items-center">
             <div className="loading">
-              <span
-                className="spinner"
-                role="img"
-                aria-label="loading"
-                style={{ animation: 'App-logo-spin 1.5s linear infinite' }}
-              >
+              <span className="spinner animate-spin" role="img" aria-label="loading">
                 ⏳
               </span>
             </div>
             <p>Loading your adventure...</p>
           </div>
         )}
-        {errorRandom && <p className="error-message">❌ Error: {errorRandom}</p>}
+        {errorRandom && <p className="text-red-500">❌ Error: {errorRandom}</p>}
       </section>
       {randomCountry && (
-        <section className="country-info">
-          <h2>{randomCountry.country_name}</h2>
+        <section className="country-info mt-6">
+          <h2 className="text-3xl">{randomCountry.country_name}</h2>
           {flagSrc && (
-            <div className="flag-container">
+            <div className="flag-container flex justify-center my-4">
               <img
                 src={flagSrc}
                 alt={`Flag of ${randomCountry.country_name}`}
-                style={{ maxWidth: '300px', margin: '1rem 0' }}
+                className="max-w-xs"
               />
             </div>
           )}
           <div className="country-details">
-            <div className="detail">
-              <h3 style={{ fontSize: "2rem", margin: "0.5rem 0" }}>🏛 Capital</h3>
+            <div className="detail mb-4">
+              <h3 className="text-2xl">🏛 Capital</h3>
               <p>
-                <Link to={`/capital/${randomCountry.capital}`}>{randomCountry.capital}</Link>
+                <Link to={`/capital/${randomCountry.capital}`} className="text-blue-400 hover:underline">{randomCountry.capital}</Link>
               </p>
             </div>
-            <div className="detail">
-              <h3 style={{ fontSize: "2rem", margin: "0.5rem 0" }}>🏰 Government Type</h3>
+            <div className="detail mb-4">
+              <h3 className="text-2xl">🏰 Government Type</h3>
               <p>{randomCountry.government_type}</p>
             </div>
-            <div className="detail">
-              <h3 style={{ fontSize: "2rem", margin: "0.5rem 0" }}>💰 Currency</h3>
+            <div className="detail mb-4">
+              <h3 className="text-2xl">💰 Currency</h3>
               <p>{randomCountry.currency}</p>
             </div>
-            <div className="detail">
-              <h3 style={{ fontSize: "2rem", margin: "0.5rem 0" }}>🎉 Fun Facts</h3>
+            <div className="detail mb-4">
+              <h3 className="text-2xl">🎉 Fun Facts</h3>
               {(randomCountry.fun_facts.includes("1.") || randomCountry.fun_facts.includes("2.")) ? (
                 randomCountry.fun_facts.split(/(?=1\.)|(?=2\.)/).map((fact, idx) => (
                   <p key={idx}>{fact.trim()}</p>

@@ -1,27 +1,69 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
 body {
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  @apply m-0 p-0 font-sans antialiased;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  @apply font-mono;
 }
 
 /* Remove default top margins from heading elements */
 h1, h2, h3, h4, h5, h6 {
-  margin-top: 0;
+  @apply mt-0;
 }
 
 /* Set a background color for the entire document */
 html, body {
-  background-color: black; /* Change this to your desired background color */
-  margin: 0;
-  padding: 0;
-  height: 100%;
+  @apply bg-black h-full;
+}
+
+.App {
+  @apply text-center min-h-screen bg-black text-white;
+}
+
+.App-logo {
+  @apply h-[40vmin] pointer-events-none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  @apply bg-[#1f1f1f] min-h-screen flex flex-col items-center justify-center text-white;
+}
+
+.App-link {
+  @apply text-[#61dafb];
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Additional styles to make the button in home.js cooler */
+button {
+  @apply bg-gradient-to-r from-[#72edf2] to-[#5151e5] text-white rounded-full px-6 py-3 text-base cursor-pointer shadow-lg transition-transform transform;
+}
+
+button:hover {
+  @apply translate-y-[-3px] shadow-lg;
+}
+
+button:active {
+  @apply translate-y-0 shadow-md;
+}
+
+.spinner {
+  @apply inline-block animate-spin;
 }
