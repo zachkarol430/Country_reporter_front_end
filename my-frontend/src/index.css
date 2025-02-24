@@ -2,6 +2,16 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+html, body {
+  @apply h-full;
+  margin: 0;
+  padding: 0;
+}
+
+.global-background {
+  @apply bg-gradient-to-b from-blue-900 to-blue-500 min-h-screen;
+}
+
 body {
   @apply m-0 p-0 font-sans antialiased;
 }
@@ -15,13 +25,8 @@ h1, h2, h3, h4, h5, h6 {
   @apply mt-0;
 }
 
-/* Set a background color for the entire document */
-html, body {
-  @apply bg-black h-full;
-}
-
 .App {
-  @apply text-center min-h-screen bg-black text-white;
+  @apply text-center min-h-screen global-background text-white;
 }
 
 .App-logo {

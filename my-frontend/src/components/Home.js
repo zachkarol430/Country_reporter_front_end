@@ -33,7 +33,7 @@ const Home = () => {
   };
 
   return (
-    <div className="home bg-black text-white min-h-screen flex flex-col items-center">
+    <div className="home global-background text-white flex flex-col items-center">
       <header className="home-header">
         <h1 className="text-4xl my-4">🌍 Random Country Explorer 🌍</h1>
       </header>
@@ -91,6 +91,10 @@ const Home = () => {
               ) : (
                 <p>{randomCountry.fun_facts}</p>
               )}
+            </div>
+            <div className="detail mb-4">
+              <h3 className="text-2xl">⛳️ News Summary</h3>
+              <p>{randomCountry.news_summary}</p>
             </div>
           </div>
         </section>
