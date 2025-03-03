@@ -8,11 +8,15 @@ const Capital = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    console.log(`Fetching data for capital: ${capitalName}`); // Log the capital name
+
     const fetchCapitalInfo = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/capital/${capitalName}`);
+        const response = await axios.get(`https://countryreporter-production.up.railway.app/capital/${capitalName}`);
+        console.log('API response:', response.data); // Log the API response
         setCapitalInfo(response.data); // Set the fetched data to state
       } catch (error) {
+        console.error('Error fetching data:', error); // Log any errors
         setError(error.message); // Handle any errors
       }
     };
@@ -48,4 +52,4 @@ const Capital = () => {
   );
 };
 
-export default Capital; 
+export default Capital;
