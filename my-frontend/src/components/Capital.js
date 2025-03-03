@@ -32,9 +32,6 @@ const Capital = () => {
     return <p className="text-white">Loading...</p>; // Display loading message while fetching data
   }
 
-  // Construct the Google Maps embed URL using the API key from the environment variable
-  const googleMapsEmbedUrl = `https://www.google.com/maps/embed/v1/place?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&q=${encodeURIComponent(capitalInfo.capital)}`;
-
   return (
     <div className="home global-background text-white flex flex-col items-center min-h-screen">
       <h1 className="text-4xl font-extrabold text-blue-300">{capitalInfo.capital}</h1>
