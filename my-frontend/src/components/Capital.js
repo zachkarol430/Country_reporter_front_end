@@ -36,7 +36,7 @@ const Capital = () => {
     <div className="home global-background text-white flex flex-col items-center min-h-screen">
       <h1 className="text-4xl font-extrabold text-blue-300">{capitalInfo.capital}</h1>
       <div className="flex justify-center w-2/4"> {/* Made the div smaller for the image */}
-        <img src={capitalInfo.image_url} alt={`Image of ${capitalInfo.capital}`} className="my-1 rounded-lg shadow-lg w-2/4" /> {/* Increased image size to three-quarters of screen */}
+        <img src={capitalInfo.image_url} alt={capitalInfo.capital} className="my-1 rounded-lg shadow-lg w-2/4" /> {/* Increased image size to three-quarters of screen */}
       </div>
       <p className="text-lg font-semibold">Country: <span className="text-blue-200">{capitalInfo.country_name}</span></p>
       <p className="text-lg font-semibold">Currency: <span className="text-blue-200">{capitalInfo.currency}</span></p>
